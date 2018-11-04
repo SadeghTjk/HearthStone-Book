@@ -1,7 +1,13 @@
 package com.example.rufflez.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
+import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.util.Log;
+import android.view.ViewDebug;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.RequestQueue;
@@ -16,6 +22,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class readJson {
@@ -28,6 +36,7 @@ public class readJson {
     readJson(Context c){
         this.c = c;
     }
+
     //loads item database json
     public boolean getItemsFromJson() {
         cardsList = new ArrayList<>();
@@ -45,37 +54,45 @@ public class readJson {
                         JSONObject jo = jsonArray.getJSONObject(i);
                         Cards cards = new Cards();
 
+                        String cardid = jo.getString("id");
                         String cardName = jo.getString("name");
                         String cardClass = jo.getString("cardClass");
                         if(jo.has("flavor"))
                             cardFlavor = jo.getString("flavor");
+                        else cardFlavor = null;
                         if(jo.has("race"))
                             cardRace = jo.getString("race");
+                        else cardRace = null;
                         if(jo.has("rarity"))
                             cardRarity = jo.getString("rarity");
+                        else cardRarity = null;
                         if(jo.has("set"))
                             cardSet = jo.getString("set");
+                        else cardSet = null;
                         if(jo.has("type"))
                             cardType = jo.getString("type");
+                        else cardType = null;
                         if(jo.has("text"))
                             cardText = jo.getString("text");
+                        else cardText = null;
                         if(jo.has("cost"))
                             cardCost = jo.getInt("cost");
+                        else cardCost = -1;
                         if(jo.has("attack"))
                             cardAttack = jo.getInt("attack");
-                            else cardAttack = -1;
+                        else cardAttack = -1;
                         if(jo.has("health"))
                             cardHealth = jo.getInt("health");
-                        String cardid = jo.getString("id");
+                        else cardHealth = -1;
 
+                        cards.setRace(cardRace);
+                        cards.setText(cardText);
                         cards.setName(cardName);
                         cards.setCardClass(cardClass);
                         cards.setFlavor(cardFlavor);
-                        cards.setRace(cardRace);
                         cards.setRarity(cardRarity);
                         cards.setSet(cardSet);
                         cards.setType(cardType);
-                        cards.setText(cardText);
                         cards.setCost(cardCost);
                         cards.setAttack(cardAttack);
                         cards.setHealth(cardHealth);
@@ -83,7 +100,6 @@ public class readJson {
                         cards.setImage("https://art.hearthstonejson.com/v1/render/latest/enUS/256x/"+cards.getId()+".png");
 
                         cardsList.add(cards);
-                        Log.e("cards that added", "Image: "+cards.getImage());
                     }
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -101,8 +117,33 @@ public class readJson {
 
         return true;
     }
+
+    //get Sorted Cards List
     public List<Cards> getcardsList(){
+        //sort method
+        Collections.sort(cardsList, new Comparator<Cards>(){
+            public int compare(Cards obj1, Cards obj2) {
+                // ## Ascending order
+                //return obj1.getCost().compareToIgnoreCase(obj2.getCompanyName); // To compare string values
+                 return Integer.compare(obj1.getCost(),obj2.getCost()); // To compare integer values
+
+                // ## Descending order
+                // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
+                // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
+            }
+        });
         return cardsList;
+    }
+
+    //get Priest Cards
+    public List<Cards> getPriestCards(){
+        List<Cards> tempcards = getcardsList();
+        List<Cards> priest = new ArrayList<>();
+
+        for(int i=0;i<tempcards.size();i++)
+            if(tempcards.get(i).getCardClass() == "PRIEST" )
+                priest.add(tempcards.get(i));
+        return priest;
     }
 }
 
