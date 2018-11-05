@@ -29,6 +29,7 @@ import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.rufflez.myapplication.adapter.CGLM;
 import com.example.rufflez.myapplication.adapter.CardsListAdapter;
 
 import java.util.ArrayList;
@@ -61,12 +62,13 @@ public class CoordinatorFragment extends Fragment  {
         searchView = rootView.findViewById(R.id.appbar_search);
         recyclerView = rootView.findViewById(R.id.recyclerView);
 
-        recyclerView.setLayoutManager(new GridLayoutManager(context,3,GridLayoutManager.VERTICAL,false));
-        recyclerView.setAdapter(new CardsListAdapter(cardsList, context, new CardsListAdapter.CardsAdapterListener() {
+        cla = new CardsListAdapter(cardsList, context, new CardsListAdapter.CardsAdapterListener() {
             @Override
             public void onCardsSelected(Cards cards) {
             }
-        }));
+        });
+        recyclerView.setLayoutManager(new CGLM(context,3,GridLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(cla);
 
         return rootView;
     }
@@ -77,9 +79,6 @@ public class CoordinatorFragment extends Fragment  {
         inflater.inflate(R.menu.menu_main, menu);
         MenuItem searchItem = menu.findItem(R.id.appbar_search);
         SearchManager searchManager = (SearchManager) getActivity().getSystemService(Context.SEARCH_SERVICE);
-        cla = new CardsListAdapter(cardsList, context, new CardsListAdapter.CardsAdapterListener() {
-            @Override
-            public void onCardsSelected(Cards cards) {}});
 
         if (searchItem != null) {
             searchView = (SearchView) searchItem.getActionView();
@@ -87,12 +86,12 @@ public class CoordinatorFragment extends Fragment  {
         if (searchView != null) {
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getActivity().getComponentName()));
 
-            queryTextListener = new SearchView.OnQueryTextListener() {
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
                 @Override
                 public boolean onQueryTextChange(String newText) {
                     Log.i("onQueryTextChange", newText);
                     cla.getFilter().filter(newText);
-                    return true;
+                    return false;
                 }
                 @Override
                 public boolean onQueryTextSubmit(String query) {
@@ -100,8 +99,7 @@ public class CoordinatorFragment extends Fragment  {
                     cla.getFilter().filter(query);
                     return true;
                 }
-            };
-            searchView.setOnQueryTextListener(queryTextListener);
+            });
         }
         super.onCreateOptionsMenu(menu, inflater);
 

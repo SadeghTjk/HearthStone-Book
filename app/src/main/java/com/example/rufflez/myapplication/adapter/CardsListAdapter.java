@@ -17,6 +17,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.Toast;
+
 import com.bumptech.glide.Glide;
 import com.example.rufflez.myapplication.CardActivity;
 import com.example.rufflez.myapplication.Cards;
@@ -27,7 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHolder> implements Filterable {
-    List<Cards> cardsList,filteredcards;
+    final List<Cards> cardsList;
+    List<Cards> filteredcards;
     Context context;
     CardsAdapterListener listener;
     public Cards card;
@@ -56,7 +59,10 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
 
     @Override
     public int getItemCount() {
-        return filteredcards.size();
+        if (filteredcards == null)
+            return 0;
+        else
+            return filteredcards.size();
     }
 
     class MyHolder extends RecyclerView.ViewHolder {
@@ -75,16 +81,16 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
                 public void onClick(View view) {
                     Intent showCard = new Intent(context, CardActivity.class);
                     Bundle bundle = new Bundle();
-                    bundle.putString("image_card",cardsList.get(getAdapterPosition()).getImage());
-                    bundle.putString("name_card",cardsList.get(getAdapterPosition()).getName());
-                    bundle.putString("set_card",cardsList.get(getAdapterPosition()).getSet());
-                    bundle.putString("class_card",cardsList.get(getAdapterPosition()).getCardClass());
-                    bundle.putString("type_card",cardsList.get(getAdapterPosition()).getType());
-                    bundle.putString("flavor_card",cardsList.get(getAdapterPosition()).getFlavor());
-                    bundle.putString("text_card",cardsList.get(getAdapterPosition()).getText());
-                    bundle.putString("rarity_card",cardsList.get(getAdapterPosition()).getRarity());
-                    bundle.putString("race_card",cardsList.get(getAdapterPosition()).getRace());
-                    bundle.putInt("attack_card",cardsList.get(getAdapterPosition()).getAttack());
+                    bundle.putString("image_card",filteredcards.get(getAdapterPosition()).getImage());
+                    bundle.putString("name_card",filteredcards.get(getAdapterPosition()).getName());
+                    bundle.putString("set_card",filteredcards.get(getAdapterPosition()).getSet());
+                    bundle.putString("class_card",filteredcards.get(getAdapterPosition()).getCardClass());
+                    bundle.putString("type_card",filteredcards.get(getAdapterPosition()).getType());
+                    bundle.putString("flavor_card",filteredcards.get(getAdapterPosition()).getFlavor());
+                    bundle.putString("text_card",filteredcards.get(getAdapterPosition()).getText());
+                    bundle.putString("rarity_card",filteredcards.get(getAdapterPosition()).getRarity());
+                    bundle.putString("race_card",filteredcards.get(getAdapterPosition()).getRace());
+                    bundle.putInt("attack_card",filteredcards.get(getAdapterPosition()).getAttack());
 
                     showCard.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     showCard.putExtra("card",bundle);
@@ -108,32 +114,38 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
         return new Filter() {
             @Override
             protected FilterResults performFiltering(CharSequence charSequence) {
+
                 String charString = charSequence.toString();
-                if (charString.isEmpty()) {
+                if (charSequence.length() == 0) {
                     filteredcards = cardsList;
                 } else {
-                    List<Cards> filteredList = new ArrayList<>();
-                    for (Cards row : cardsList) {
 
-                        // name match condition. this might differ depending on your requirement
-                        // here we are looking for name or phone number match
+                    List<Cards> filteredList = new ArrayList<>();
+                    // name match condition. this might differ depending on your requirement
+                    for (Cards row : cardsList)
                         if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
-                    }
-
                     filteredcards = filteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredcards;
+                filterResults.count = filteredcards.size();
+                Log.e("filter",""+filterResults.values);
                 return filterResults;
             }
-
+            @SuppressWarnings("unchecked")
             @Override
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
                 filteredcards = (ArrayList<Cards>) filterResults.values;
+
+                for(int i=0; i<filteredcards.size();i++)
+                    Log.e("filtered card",""+filteredcards.get(i).getName());
+                //notifyItemRangeChanged(0, filteredcards.size());
                 notifyDataSetChanged();
+
             }
         };
     }
