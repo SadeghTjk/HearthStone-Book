@@ -4,25 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.rufflez.myapplication.CardActivity;
 import com.example.rufflez.myapplication.Cards;
-import com.example.rufflez.myapplication.myGlideApp;
 import com.example.rufflez.myapplication.R;
 
 import java.util.ArrayList;
@@ -32,14 +28,14 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
     final List<Cards> cardsList;
     List<Cards> filteredcards;
     Context context;
-    CardsAdapterListener listener;
     public Cards card;
+    RecyclerView rv;
 
-    public CardsListAdapter(List<Cards> cardsList, Context context,CardsAdapterListener listener) {
+    public CardsListAdapter(List<Cards> cardsList, Context context,RecyclerView rv) {
         this.cardsList = cardsList;
         this.filteredcards = cardsList;
         this.context = context;
-        this.listener = listener;
+        this.rv = rv;
     }
 
     @NonNull
@@ -59,8 +55,9 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
 
     @Override
     public int getItemCount() {
-        if (filteredcards == null)
-            return 0;
+        if (filteredcards == null){
+            Toast.makeText(context, "its 0", Toast.LENGTH_SHORT).show();
+            return 0;}
         else
             return filteredcards.size();
     }
@@ -97,14 +94,6 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
                     context.startActivity(showCard);
                 }
             });
-
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    // send selected contact in callback
-                    listener.onCardsSelected(filteredcards.get(getAdapterPosition()));
-                }
-            });
         }
 
     }
@@ -119,20 +108,24 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
                 if (charSequence.length() == 0) {
                     filteredcards = cardsList;
                 } else {
-
                     List<Cards> filteredList = new ArrayList<>();
-                    // name match condition. this might differ depending on your requirement
-                    for (Cards row : cardsList)
-                        if (row.getName().toLowerCase().contains(charString.toLowerCase())) {
-                            filteredList.add(row);
-                        }
-                    filteredcards = filteredList;
+
+                    for (Cards c : cardsList){
+                        if(c.getText() != null )
+                            if (c.getName().toLowerCase().contains(charString.toLowerCase()) || c.getText().toLowerCase().contains(charString.toLowerCase()) ) {
+                                filteredList.add(c);
+                            }
+                        else {
+                            if(c.getName().toLowerCase().contains(charString.toLowerCase()))
+                                filteredList.add(c);
+                            }
+                    }
+                        filteredcards = filteredList;
                 }
 
                 FilterResults filterResults = new FilterResults();
                 filterResults.values = filteredcards;
                 filterResults.count = filteredcards.size();
-                Log.e("filter",""+filterResults.values);
                 return filterResults;
             }
             @SuppressWarnings("unchecked")
@@ -140,17 +133,9 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
             protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
 
                 filteredcards = (ArrayList<Cards>) filterResults.values;
-
-                for(int i=0; i<filteredcards.size();i++)
-                    Log.e("filtered card",""+filteredcards.get(i).getName());
-                //notifyItemRangeChanged(0, filteredcards.size());
                 notifyDataSetChanged();
 
             }
         };
-    }
-
-    public interface CardsAdapterListener {
-        void onCardsSelected(Cards cards);
     }
 }

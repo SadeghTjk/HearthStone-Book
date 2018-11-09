@@ -29,6 +29,7 @@ import java.util.List;
 public class readJson {
     Context c;
     public static List<Cards> cardsList;
+    public static List<Cards> priestCards;
 
     String cardRace,cardFlavor,cardText,cardRarity,cardSet,cardType;
     int cardHealth,cardAttack,cardCost;
@@ -136,15 +137,18 @@ public class readJson {
     }
 
     //get Priest Cards
-    public List<Cards> getPriestCards(){
-        List<Cards> tempcards = getcardsList();
-        List<Cards> priest = new ArrayList<>();
-
-        for(int i=0;i<tempcards.size();i++)
-            if(tempcards.get(i).getCardClass() == "PRIEST" )
-                priest.add(tempcards.get(i));
-        return priest;
-    }
+//    public List<Cards> getPriestCards(){
+//        //final List<Cards> tempcards = cardsList;
+//        priestCards = new ArrayList<>();
+//        Log.e("first size", "first size"+priestCards.size() );
+//        for(int i=0;i<cardsList.size();i++)
+//            if(cardsList.get(i).getCardClass().equals("PRIEST")){
+//                Log.e("a card", ": "+priestCards.size() );
+//                priestCards.add(cardsList.get(i));
+//            }
+//        //Log.e("priest", "getPriestCards: "+priestCards.size()+priestCards.get(0).getName() );
+//        return priestCards;
+//    }
 }
 
 
