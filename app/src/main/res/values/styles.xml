@@ -1,12 +1,12 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.DesignDemo" parent="Base.Theme.MaterialComponents">
+    <style name="Theme.DesignDemo" parent="Base.Theme.AppCompat.Light">
         <item name="android:fontFamily">@font/mitra</item>
         <item name="android:textColor">#000</item>
     </style>
 
-    <style name="Base.Theme.DesignDemo" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Base.Theme.DesignDemo" parent="Theme.AppCompat.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/primary</item>
         <item name="colorPrimaryDark">@color/primaryDark</item>

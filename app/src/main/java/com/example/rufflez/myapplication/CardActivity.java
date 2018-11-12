@@ -1,8 +1,5 @@
 package com.example.rufflez.myapplication;
 
-import android.content.Intent;
-import android.media.Image;
-import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
@@ -13,10 +10,8 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.util.List;
-
 public class CardActivity extends AppCompatActivity {
-    List<Cards> cardsList;
+
     TextView name_card,set_card,type_card,attack_card,class_card,flavor_card,text_card,rarity_card,race_card;
     ImageView image_card;
     @Override

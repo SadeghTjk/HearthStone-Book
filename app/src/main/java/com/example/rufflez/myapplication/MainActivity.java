@@ -1,11 +1,12 @@
 package com.example.rufflez.myapplication;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -13,13 +14,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.rufflez.myapplication.adapter.CardsListAdapter;
+import com.example.rufflez.myapplication.fragments.CardsFragment;
+import com.example.rufflez.myapplication.fragments.ClassFragment;
+import com.example.rufflez.myapplication.fragments.AboutFragment;
+import com.example.rufflez.myapplication.fragments.DecksFragment;
+import com.example.rufflez.myapplication.fragments.ExpansionFragment;
+import com.example.rufflez.myapplication.fragments.HomeFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -30,18 +35,22 @@ public class MainActivity extends AppCompatActivity {
     static List<Cards> cardsList;
     ImageView toolbariv;
     SearchView searchView;
-
+    Fragment homeFrag,cardsFrag,classFrag,aboutFrag,expansionsFrag,decksFrag,activeFrag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        toolbariv = findViewById(R.id.toolbariv);
-        drawerLayout = findViewById(R.id.drawer_layout);
-        viewPager = findViewById(R.id.tab_viewpager);
-        NavigationView navView = findViewById(R.id.navigation_view);
-        TabLayout tabLayout = findViewById(R.id.tabLayout);
+        //Reading Cards From Json
+        readJson readJson = new readJson(this);
+        readJson.getItemsFromJson();
+        cardsList = readJson.getcardsList();
 
+        //References
+        drawerLayout = findViewById(R.id.drawer_layout);
+        NavigationView navView = findViewById(R.id.navigation_view);
+
+        //Set Toolbar
         Toolbar toolbar = findViewById(R.id.mToolbar);
         setSupportActionBar(toolbar);
 
@@ -49,68 +58,62 @@ public class MainActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-        final readJson readJson = new readJson(this);
-        readJson.getItemsFromJson();
-        cardsList = readJson.getcardsList();
 
-        if (navView != null) {
-            setupDrawerContent(navView);
-        }
-        if (viewPager != null) {
-            setupViewPager(viewPager);
-        }
 
-        tabLayout.setupWithViewPager(viewPager);
+        //Creating Fragmnets
+        aboutFrag = new AboutFragment();
+        classFrag = new ClassFragment();
+        cardsFrag = new CardsFragment();
+        decksFrag = new DecksFragment();
+        homeFrag = new HomeFragment();
+        expansionsFrag = new ExpansionFragment();
+        activeFrag = homeFrag;
 
-        tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+
+        //Hiding Fragments!!
+        getSupportFragmentManager().beginTransaction().add(R.id.container,homeFrag,"HearthStone").commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,cardsFrag,"Cards List").hide(cardsFrag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,classFrag,"Classes").hide(classFrag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,expansionsFrag,"Expantions").hide(expansionsFrag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,decksFrag,"Deck Lists").hide(decksFrag).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.container,aboutFrag,getString(R.string.aboutus)).hide(aboutFrag).commit();
+
+
+        //Setup Drawer Listener
+        navView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-
-            }
-        });
-
-    }
-
-
-    private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
-        adapter.addFrag(new FloatingLabelsFragment(), "Floating Labels");
-        adapter.addFrag(new FABLayoutFragment(), "Priest");
-        adapter.addFrag(new CoordinatorFragment(), "Coordinator Layout");
-        viewPager.setAdapter(adapter);
-    }
-
-    private void setupDrawerContent(NavigationView navigationView) {
-        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(MenuItem menuItem) {
-                menuItem.setChecked(true);
+            public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+                //menuItem.setChecked(true);
 
                 switch (menuItem.getItemId()) {
                     case R.id.drawer_home:
-                        viewPager.setCurrentItem(0);
+                        showFragment(homeFrag);
+                        activeFrag = homeFrag;
                         break;
+
                     case R.id.drawer_expansions:
-                        viewPager.setCurrentItem(1);
+                        showFragment(expansionsFrag);
+                        activeFrag = expansionsFrag;
                         break;
+
                     case R.id.drawer_cards:
-                        viewPager.setCurrentItem(2);
+                        showFragment(cardsFrag);
+                        activeFrag = cardsFrag;
                         break;
+
                     case R.id.drawer_classes:
-                        viewPager.setCurrentItem(3);
+                        showFragment(classFrag);
+                        activeFrag = classFrag;
                         break;
+
                     case R.id.drawer_decks:
-                        viewPager.setCurrentItem(3);
+                        showFragment(decksFrag);
+                        activeFrag = decksFrag;
+                        break;
+
+                    case R.id.drawer_about:
+                        showFragment(aboutFrag);
+                        activeFrag = aboutFrag;
                         break;
                 }
 
@@ -120,55 +123,23 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    static class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String> mFragmentTitleList = new ArrayList<>();
-
-        public ViewPagerAdapter(FragmentManager manager) {
-            super(manager);
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            return mFragmentList.get(position);
-        }
-
-        @Override
-        public int getCount() {
-            return mFragmentList.size();
-        }
-
-        public void addFrag(Fragment fragment, String title) {
-            mFragmentList.add(fragment);
-            mFragmentTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mFragmentTitleList.get(position);
-        }
+    private void showFragment(Fragment fragment){
+        getSupportFragmentManager().beginTransaction().hide(activeFrag).show(fragment).commit();
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        int id = item.getItemId();
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        switch (id) {
+        switch (item.getItemId()) {
             case android.R.id.home:
-                if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-                    drawerLayout.closeDrawer(GravityCompat.START);
-                } else {
-                    drawerLayout.openDrawer(GravityCompat.START);
-                }
+                drawerLayout.openDrawer(GravityCompat.START);
+                return true;
 
+            case R.id.action_settings:
                 return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
+
 }
