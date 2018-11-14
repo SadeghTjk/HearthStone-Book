@@ -24,38 +24,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClassFragment extends Fragment {
-    List<Cards> priestCardslist;
-    RecyclerView priestRV;
     Context context;
-    List<Cards> priestCards = new ArrayList<>();
-    com.example.rufflez.myapplication.readJson readJson = new readJson(context);
-
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_class, container, false);
         context = getActivity();
-        priestRV = rootView.findViewById(R.id.priestRV);
-
-
-
-
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                    priestCardslist = readJson.getcardsList();
-                    Log.e("priestCardslist size", ": " + priestCardslist.size());
-
-
-                    for (int i = 0; i < priestCardslist.size(); i++)
-                        if (priestCardslist.get(i).getCardClass().equals("PRIEST")) {
-                            Log.e("a card", ": " + priestCards.size());
-                            priestCards.add(priestCardslist.get(i));
-                        }
-
-                    priestRV.setLayoutManager(new CGLM(context, 3, GridLayoutManager.VERTICAL, false));
-                    priestRV.setAdapter(new CardsListAdapter(priestCards, context));
-            }
-        }, 4000);
-
 
         return rootView;
     }

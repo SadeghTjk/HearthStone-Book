@@ -31,6 +31,7 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
         this.cardsList = cardsList;
         this.filteredcards = cardsList;
         this.context = context;
+
     }
 
     @NonNull

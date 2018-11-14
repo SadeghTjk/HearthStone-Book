@@ -16,13 +16,16 @@
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             app:liftOnScroll="true">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/mToolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?attr/actionBarSize"
+                android:background="@drawable/toolbar"
                 android:layoutDirection="rtl"
+                android:theme="@style/toolbar_style"
                 android:textDirection="rtl"
                 app:layout_scrollFlags="scroll|enterAlways" />
 

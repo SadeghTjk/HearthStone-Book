@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.logging.Handler;
 
 public class readJson {
     Context c;
@@ -94,6 +95,11 @@ public class readJson {
 
                         cardsList.add(cards);
                     }
+                    Collections.sort(cardsList, new Comparator<Cards>(){
+                        public int compare(Cards obj1, Cards obj2) {
+                            return Integer.compare(obj1.getCost(),obj2.getCost()); // To compare integer values
+                        }
+                    });
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -101,7 +107,7 @@ public class readJson {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(c, "" + error.getMessage(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(c, "خطا در ارتباط با اینترنت" , Toast.LENGTH_SHORT).show();
             }
         });
         RequestQueue requestQueue = Volley.newRequestQueue(c);
@@ -113,17 +119,19 @@ public class readJson {
     //get Sorted Cards List
     public List<Cards> getcardsList(){
         //sort method
-        Collections.sort(cardsList, new Comparator<Cards>(){
-            public int compare(Cards obj1, Cards obj2) {
-                // ## Ascending order
-                //return obj1.getCost().compareToIgnoreCase(obj2.getCompanyName); // To compare string values
-                return Integer.compare(obj1.getCost(),obj2.getCost()); // To compare integer values
+//        Collections.sort(cardsList, new Comparator<Cards>(){
+//            public int compare(Cards obj1, Cards obj2) {
+//                // ## Ascending order
+//                //return obj1.getCost().compareToIgnoreCase(obj2.getCompanyName); // To compare string values
+//                return Integer.compare(obj1.getCost(),obj2.getCost()); // To compare integer values
+//
+//                // ## Descending order
+//                // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
+//                // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
+//            }
+//        });
 
-                // ## Descending order
-                // return obj2.getCompanyName().compareToIgnoreCase(obj1.getCompanyName()); // To compare string values
-                // return Integer.valueOf(obj2.getId()).compareTo(obj1.getId()); // To compare integer values
-            }
-        });
+
         return cardsList;
     }
 

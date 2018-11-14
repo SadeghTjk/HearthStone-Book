@@ -13,6 +13,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -33,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private ViewPager viewPager;
     static List<Cards> cardsList;
+    static Boolean readed;
     ImageView toolbariv;
     SearchView searchView;
     Fragment homeFrag,cardsFrag,classFrag,aboutFrag,expansionsFrag,decksFrag,activeFrag;
@@ -43,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Reading Cards From Json
         readJson readJson = new readJson(this);
-        readJson.getItemsFromJson();
+        readed = readJson.getItemsFromJson();
         cardsList = readJson.getcardsList();
 
         //References
@@ -133,9 +135,6 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
-                return true;
-
-            case R.id.action_settings:
                 return true;
         }
 

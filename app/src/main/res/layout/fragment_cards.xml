@@ -8,14 +8,6 @@
     android:gravity="bottom"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true"
-        android:scrollbars="vertical"
-        android:visibility="gone" />
-
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -24,7 +16,7 @@
         android:scrollbars="none">
 
         <RadioGroup
-            android:id="@+id/radio_group"
+            android:id="@+id/radio_class"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layoutDirection="ltr"
@@ -130,8 +122,8 @@
 
         <ImageView
             android:id="@+id/imageView4"
-            android:layout_width="wrap_content"
-            android:layout_height="442dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="37dp"
@@ -148,12 +140,17 @@
             android:rotation="180"
             android:scaleType="centerCrop"
             app:srcCompat="@drawable/page_start" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:visibility="visible" />
+
     </RelativeLayout>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/tab_viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+
 
 
 </LinearLayout>
