@@ -62,7 +62,9 @@ public class CardsFragment extends Fragment {
         empty = new ArrayList<>();
         rv = rootView.findViewById(R.id.rv);
         cla = new CardsListAdapter(cardsList, context);
-        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.HORIZONTAL, false));
+        CGLM cglm = new CGLM(context, 3, GridLayoutManager.HORIZONTAL, false);
+        rv.setLayoutManager(cglm);
+        rv.setHasFixedSize(true);
         rv.setAdapter(cla);
 
         //adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
