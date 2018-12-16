@@ -5,20 +5,13 @@
     android:layout_height="wrap_content"
     android:clipToPadding="false">
 
-    <RelativeLayout
-        android:id="@+id/cardview"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center">
-
-        <ImageView
-            android:id="@+id/cardimage"
-            android:layout_width="130dp"
-            android:layout_height="165dp"
-            android:layout_centerInParent="true"
-            android:adjustViewBounds="true"
-            android:scaleType="centerCrop" />
-
-    </RelativeLayout>
+    <ImageView
+        android:id="@+id/cardimage"
+        android:layout_width="130dp"
+        android:layout_height="165dp"
+        android:adjustViewBounds="true"
+        android:cropToPadding="true"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/light_warden" />
 
 </FrameLayout>

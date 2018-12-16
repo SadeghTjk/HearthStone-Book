@@ -62,7 +62,7 @@ public class CardsFragment extends Fragment {
         empty = new ArrayList<>();
         rv = rootView.findViewById(R.id.rv);
         cla = new CardsListAdapter(cardsList, context);
-        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.VERTICAL, false));
+        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.HORIZONTAL, false));
         rv.setAdapter(cla);
 
         //adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
@@ -82,12 +82,10 @@ public class CardsFragment extends Fragment {
 
                     case R.id.priest:
                         getCardsforClass("PRIEST");
-
                         break;
-
                     case R.id.mage:
                         cla = new CardsListAdapter(cardsList, context);
-                        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.VERTICAL, false));
+                        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.HORIZONTAL, false));
 
                         rv.setAdapter(cla);
                         break;
@@ -186,7 +184,7 @@ public class CardsFragment extends Fragment {
                 Log.e("a card", ": " + temp.size());
                 temp.add(cardsList.get(i));
             }
-        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.VERTICAL, false));
+        rv.setLayoutManager(new CGLM(context, 3, GridLayoutManager.HORIZONTAL, false));
         CardsListAdapter tempcla = new CardsListAdapter(temp, context);
         rv.setAdapter(tempcla);
     }

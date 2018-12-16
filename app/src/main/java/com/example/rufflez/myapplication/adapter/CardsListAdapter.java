@@ -62,8 +62,8 @@ public class CardsListAdapter extends RecyclerView.Adapter<CardsListAdapter.MyHo
         private MyHolder(@NonNull View itemView) {
             super(itemView);
             cardimage = itemView.findViewById(R.id.cardimage);
-            cardView = itemView.findViewById(R.id.cardview);
-            cardView.setOnClickListener(new View.OnClickListener() {
+
+            cardimage.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent showCard = new Intent(context, CardActivity.class);
