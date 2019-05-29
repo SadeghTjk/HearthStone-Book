@@ -1,24 +1,17 @@
-package com.example.rufflez.myapplication.fragments;
+package com.danteh.hearthking.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.util.Log;
+import androidx.core.app.Fragment;
+import androidx.core.app.FragmentManager;
+import androidx.core.app.FragmentPagerAdapter;
+import androidx.core.view.ViewPager;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.rufflez.myapplication.Cards;
-import com.example.rufflez.myapplication.R;
-import com.example.rufflez.myapplication.adapter.CGLM;
-import com.example.rufflez.myapplication.adapter.CardsListAdapter;
-import com.example.rufflez.myapplication.readJson;
+import com.danteh.hearthking.R;
 
 import java.util.ArrayList;
 import java.util.List;

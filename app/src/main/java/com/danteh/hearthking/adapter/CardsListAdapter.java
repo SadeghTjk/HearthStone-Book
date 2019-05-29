@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication.adapter;
+package com.danteh.hearthking.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-import com.example.rufflez.myapplication.CardActivity;
-import com.example.rufflez.myapplication.Cards;
-import com.example.rufflez.myapplication.GlideApp;
-import com.example.rufflez.myapplication.R;
+import com.danteh.hearthking.CardActivity;
+import com.danteh.hearthking.Cards;
+import com.danteh.hearthking.GlideApp;
+import com.danteh.hearthking.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
 /**
  * Created by rufflez on 10/4/15.

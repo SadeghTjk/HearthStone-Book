@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
 import android.content.Context;
 import android.util.Log;
@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
-import java.util.logging.Handler;
 
 public class readJson {
     Context c;

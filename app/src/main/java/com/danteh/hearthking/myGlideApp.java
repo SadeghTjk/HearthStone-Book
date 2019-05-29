@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
 import com.bumptech.glide.annotation.GlideModule;
 import com.bumptech.glide.module.AppGlideModule;

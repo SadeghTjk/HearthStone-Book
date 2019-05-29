@@ -1,14 +1,14 @@
-package com.example.rufflez.myapplication.fragments;
+package com.danteh.hearthking.fragments;
 
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
+import androidx.core.app.Fragment;
+import androidx.core.app.FragmentManager;
+import androidx.core.app.FragmentPagerAdapter;
+import androidx.core.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -18,17 +18,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SearchView;
-import android.widget.Toast;
 
-import com.example.rufflez.myapplication.Cards;
-import com.example.rufflez.myapplication.MainActivity;
-import com.example.rufflez.myapplication.R;
-import com.example.rufflez.myapplication.adapter.CGLM;
-import com.example.rufflez.myapplication.adapter.CardsListAdapter;
-import com.example.rufflez.myapplication.readJson;
+import com.danteh.hearthking.Cards;
+import com.danteh.hearthking.R;
+import com.danteh.hearthking.adapter.CGLM;
+import com.danteh.hearthking.adapter.CardsListAdapter;
+import com.danteh.hearthking.readJson;
 
 import java.util.ArrayList;
 import java.util.List;

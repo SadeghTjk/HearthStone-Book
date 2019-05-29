@@ -1,30 +1,27 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.view.ViewPager;
-import android.support.v4.widget.DrawerLayout;
+
+import androidx.core.app.Fragment;
+import androidx.core.app.FragmentTransaction;
+import androidx.core.view.GravityCompat;
+import androidx.core.view.ViewPager;
+import androidx.core.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
-import com.example.rufflez.myapplication.fragments.CardsFragment;
-import com.example.rufflez.myapplication.fragments.ClassFragment;
-import com.example.rufflez.myapplication.fragments.AboutFragment;
-import com.example.rufflez.myapplication.fragments.DecksFragment;
-import com.example.rufflez.myapplication.fragments.ExpansionFragment;
-import com.example.rufflez.myapplication.fragments.HomeFragment;
+import com.danteh.hearthking.fragments.CardsFragment;
+import com.danteh.hearthking.fragments.ClassFragment;
+import com.danteh.hearthking.fragments.AboutFragment;
+import com.danteh.hearthking.fragments.DecksFragment;
+import com.danteh.hearthking.fragments.ExpansionFragment;
+import com.danteh.hearthking.fragments.HomeFragment;
 
 import java.util.List;
 

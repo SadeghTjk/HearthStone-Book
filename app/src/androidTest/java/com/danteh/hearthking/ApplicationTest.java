@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

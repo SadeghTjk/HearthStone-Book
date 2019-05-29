@@ -1,17 +1,17 @@
-package com.example.rufflez.myapplication.fragments;
+package com.danteh.hearthking.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import androidx.core.app.Fragment;
+import androidx.core.app.FragmentManager;
+import androidx.core.app.FragmentPagerAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.example.rufflez.myapplication.R;
+import com.danteh.hearthking.R;
 
 import java.util.ArrayList;
 import java.util.List;

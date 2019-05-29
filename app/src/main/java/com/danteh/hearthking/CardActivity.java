@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication;
+package com.danteh.hearthking;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;

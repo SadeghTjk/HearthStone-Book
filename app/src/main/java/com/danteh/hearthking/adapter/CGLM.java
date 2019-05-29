@@ -1,4 +1,4 @@
-package com.example.rufflez.myapplication.adapter;
+package com.danteh.hearthking.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.GridLayoutManager;
