@@ -1,8 +1,10 @@
 package com.danteh.hearthking.adapter;
 
 import android.content.Context;
-import android.support.v7.widget.GridLayoutManager;
+
 import android.util.AttributeSet;
+
+import androidx.recyclerview.widget.GridLayoutManager;
 
 public class CGLM extends GridLayoutManager {
     @Override

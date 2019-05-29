@@ -33,7 +33,7 @@ public class readJson {
     //loads item database json
     public boolean getItemsFromJson() {
         cardsList = new ArrayList<>();
-        String url = "https://api.hearthstonejson.com/v1/27358/enUS/cards.collectible.json";
+        String url = "https://api.hearthstonejson.com/v1/latest/enUS/cards.collectible.json";
         StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {

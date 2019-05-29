@@ -1,17 +1,16 @@
 package com.danteh.hearthking;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.NavigationView;
 
-import androidx.core.app.Fragment;
-import androidx.core.app.FragmentTransaction;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
-import androidx.core.view.ViewPager;
-import androidx.core.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.viewpager.widget.ViewPager;
+
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.SearchView;
@@ -22,6 +21,7 @@ import com.danteh.hearthking.fragments.AboutFragment;
 import com.danteh.hearthking.fragments.DecksFragment;
 import com.danteh.hearthking.fragments.ExpansionFragment;
 import com.danteh.hearthking.fragments.HomeFragment;
+import com.google.android.material.navigation.NavigationView;
 
 import java.util.List;
 
@@ -57,9 +57,7 @@ public class MainActivity extends AppCompatActivity {
         ab.setHomeAsUpIndicator(R.drawable.ic_menu);
         ab.setDisplayHomeAsUpEnabled(true);
 
-
-
-        //Creating Fragmnets
+        //Creating Fragments
         aboutFrag = new AboutFragment();
         classFrag = new ClassFragment();
         cardsFrag = new CardsFragment();
